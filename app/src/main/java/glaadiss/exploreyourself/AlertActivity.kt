@@ -2,15 +2,11 @@ package glaadiss.exploreyourself
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.view.WindowManager
 import android.widget.RatingBar
 import android.widget.Toast
-import android.R.attr.rating
-import android.os.Handler
-import android.view.View
-import android.view.WindowManager
 
 
 class AlertActivity : Activity() {
@@ -34,8 +30,9 @@ class AlertActivity : Activity() {
             .setView(rootView)
             .setCancelable(false)
             .setPositiveButton("Send Rate") { _, _ ->
-                val rating = "Rating is :" + ratingBar.rating;
+                val rating = "Rating is :" + ratingBar.rating
                 Toast.makeText(applicationContext, rating, Toast.LENGTH_LONG).show()
+                API.rate(ratingBar.rating)
                 Handler().postDelayed({ finish() }, 1000)
             }
             .show()

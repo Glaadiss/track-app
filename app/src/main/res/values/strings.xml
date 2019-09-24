@@ -12,4 +12,5 @@
     <string name="rate_day_action">rate_day_action</string>
     <string name="send_rate_text">Send Rate</string>
     <string name="send_rate_alert_title">Rate the day!</string>
+    <string name="base_url">http://192.168.123.102:3000/</string>
 </resources>
