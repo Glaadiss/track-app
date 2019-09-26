@@ -1,6 +1,6 @@
 package glaadiss.exploreyourself
 
-import android.app.usage.UsageEvents
+import android.app.AlarmManager
 import android.app.usage.UsageStatsManager
 import android.content.pm.PackageManager
 import android.text.format.DateUtils
@@ -33,41 +33,9 @@ internal class UsageStatsAdapter : BaseAdapter() {
     private var mAppLabelComparator: UsageStatsComparator.AppNameComparator? = null
 
     fun init(): UsageStatsAdapter? {
-
-        val hour = 3600000
-        val beginTime = System.currentTimeMillis() - hour
-        val endTime = System.currentTimeMillis()
-        val eventsMap = HashMap<String, AppUsageInfo>()
-        val allEvents = ArrayList<UsageEvents.Event>()
-        val events = mUsageStatsManager!!.queryEvents(beginTime, endTime)
-        while (events.hasNextEvent()) {
-            val currentEvent = UsageEvents.Event()
-            events.getNextEvent(currentEvent)
-            if (currentEvent.eventType === UsageEvents.Event.MOVE_TO_FOREGROUND || currentEvent.eventType === UsageEvents.Event.MOVE_TO_BACKGROUND) {
-                allEvents.add(currentEvent)
-                val key = currentEvent.packageName
-                if (eventsMap[key] == null)
-                    eventsMap[key] = AppUsageInfo(key)
-            }
-        }
-
-        for (event in allEvents) {
-            val usageInfo = eventsMap[event.packageName]!!
-            if(event.eventType == UsageEvents.Event.MOVE_TO_BACKGROUND){
-                if(usageInfo.previousEventTimestamp.equals(0)){
-                    usageInfo.previousEventTimestamp = beginTime
-                    usageInfo.isInBackground = !usageInfo.isInBackground
-
-                }
-                usageInfo.timeInForeground += event.timeStamp - usageInfo.previousEventTimestamp
-
-            }
-            usageInfo.previousEventTimestamp = event.timeStamp
-            usageInfo.isInBackground = !usageInfo.isInBackground
-        }
-
+        val eventsMap = UsageStatsUtil.fetchStatsData(mUsageStatsManager!!, timeAgo = AlarmManager.INTERVAL_DAY)
         val stats = eventsMap.toList()
-        for (stat in stats){
+        for (stat in stats) {
             val pkgStats = stat.second
             try {
                 val appInfo = mPm!!.getApplicationInfo(pkgStats.packageName, 0)
@@ -80,7 +48,6 @@ internal class UsageStatsAdapter : BaseAdapter() {
         }
 
         mPackageStats.addAll(eventsMap.values)
-
         mAppLabelComparator = UsageStatsComparator.AppNameComparator(mAppLabelMap)
         sortList()
         return this
@@ -99,8 +66,8 @@ internal class UsageStatsAdapter : BaseAdapter() {
         return position.toLong()
     }
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var convertView = convertView
+    override fun getView(position: Int, cView: View?, parent: ViewGroup): View {
+        var convertView = cView
         val holder: MainActivity.AppViewHolder
         if (convertView == null) {
             convertView = mInflater!!.inflate(R.layout.usage_stats_item, null)
@@ -119,7 +86,7 @@ internal class UsageStatsAdapter : BaseAdapter() {
             pkgStats.previousEventTimestamp,
             System.currentTimeMillis(), DateFormat.MEDIUM, DateFormat.MEDIUM
         )
-        holder.usageTime?.text = DateUtils.formatElapsedTime(pkgStats.timeInForeground/ 1000)
+        holder.usageTime?.text = DateUtils.formatElapsedTime(pkgStats.timeInForeground / 1000)
         return convertView
     }
 

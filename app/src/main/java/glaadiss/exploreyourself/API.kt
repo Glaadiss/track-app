@@ -74,7 +74,12 @@ object API {
         Fuel.post(getPath("rate")).body(body).response { _, _, result ->
             Log.i("Request", result.toString())
         }
+    }
 
+    fun sendStats(statsJson: String) {
+        Fuel.post(getPath("activities")).body(statsJson).response { _, _, result ->
+            Log.i("Request", result.toString())
+        }
     }
 
 }

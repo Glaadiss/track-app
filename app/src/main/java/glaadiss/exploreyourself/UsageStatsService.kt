@@ -2,13 +2,17 @@ package glaadiss.exploreyourself
 
 import android.app.IntentService
 import android.content.Intent
+import android.util.Log
 
-
-
-class UsageStatsService : IntentService("usage_stats") {
+class UsageStatsService : IntentService("send_stats") {
     override fun onHandleIntent(intent: Intent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Log.d("SEND_STATS", "SENDING STATS...")
+        API.sendStats(
+            UsageStatsUtil.prepareStatsData(
+                UsageStatsUtil.fetchStatsData(
+                    UsageStatsUtil.createStatsManager()
+                )
+            )
+        )
     }
-
-
 }
