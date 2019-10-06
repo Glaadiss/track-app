@@ -23,42 +23,6 @@ class MainActivity : Activity(), OnItemSelectedListener {
 
     private var mAdapter: UsageStatsAdapter? = null
 
-
-//    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        API.handleGoogleAuthResponse(requestCode, data)
-//
-//    }
-
-//    private var alarmMgr: AlarmManager? = null
-//    private lateinit var alarmIntent: PendingIntent
-//    private fun askForScore() {
-//
-//        val calendar: Calendar = Calendar.getInstance().apply {
-//            timeInMillis = System.currentTimeMillis()
-//            set(Calendar.HOUR_OF_DAY, 21)
-//        }
-//
-//
-//        alarmMgr = applicationContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-//
-//        alarmIntent = Intent(applicationContext, AlarmReceiver::class.java).let { intent ->
-//            intent.action = "rate_day"
-//            PendingIntent.getBroadcast(applicationContext, 101, intent, PendingIntent.FLAG_CANCEL_CURRENT)
-//        }
-//
-//
-//
-//        alarmMgr?.setRepeating(
-//            AlarmManager.RTC_WAKEUP,
-//            if (System.currentTimeMillis() > calendar.timeInMillis)
-//                calendar.timeInMillis + AlarmManager.INTERVAL_DAY
-//            else calendar.timeInMillis,
-//            AlarmManager.INTERVAL_DAY,
-//            alarmIntent
-//        )
-//    }
-
     /**
      * Called when the activity is first created.
      */
@@ -69,8 +33,9 @@ class MainActivity : Activity(), OnItemSelectedListener {
         val statsManager = UsageStatsUtil.createStatsManager()
         prepareStatsList(statsManager)
 //        API.rate(4)
-        Alarm.setRateDayAlarm()
-        Alarm.setSendStatsAlarm()
+//        Alarm.setRateDayAlarm()
+//        Alarm.setSendStatsAlarm()
+        Alarm.getAlarmIntent(Pair("rate_day", 101)).send()
     }
 
     private fun prepareStatsList(statsManager: UsageStatsManager){

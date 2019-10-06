@@ -21,7 +21,7 @@ object Alarm {
     private fun getAlarmManager() =
         ContextProvider.context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
 
-    private fun getAlarmIntent(intentInfo: Pair<String, Int>) =
+    fun getAlarmIntent(intentInfo: Pair<String, Int>) =
         Intent(ContextProvider.context, AlarmReceiver::class.java).let { intent ->
             intent.action = intentInfo.first
             PendingIntent.getBroadcast(

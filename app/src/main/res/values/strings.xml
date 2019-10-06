@@ -4,7 +4,7 @@
     <string name="last_time_used">"Last time used: "</string>
     <string name="time_span">"Time span: "</string>
     <string name="server_client_id">607978466940-4u4illcbmjqnmok8pnibtd6hqk248oke.apps.googleusercontent.com</string>
-    <string name="display_order_text">Sort by:</string>
+    <string name="display_order_text">Track Apps</string>
     <string name="app_name_label">App</string>
     <string name="last_time_used_label">Last time used</string>
     <!-- label for usage time -->
@@ -12,5 +12,6 @@
     <string name="rate_day_action">rate_day_action</string>
     <string name="send_rate_text">Send Rate</string>
     <string name="send_rate_alert_title">Rate the day!</string>
-    <string name="base_url">http://192.168.123.102:3000/</string>
+    <string name="base_url">http://ec2-18-194-232-194.eu-central-1.compute.amazonaws.com:3000/</string>
+    <string name="test_url">http://192.168.1.118:3000/</string>
 </resources>
