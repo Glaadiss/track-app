@@ -22,7 +22,9 @@ object UsageStatsUtil {
             .queryUsageStats(UsageStatsManager.INTERVAL_DAILY, 0, System.currentTimeMillis())
         val isEmpty = stats.isEmpty()
         if (isEmpty) {
-            ContextProvider.context.startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+            val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            ContextProvider.context.startActivity(intent)
         }
         return statsManager
     }

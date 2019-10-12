@@ -2,8 +2,11 @@ package glaadiss.exploreyourself
 
 import android.app.Activity
 import android.app.usage.UsageStatsManager
+import android.content.ComponentName
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
@@ -30,12 +33,26 @@ class MainActivity : Activity(), OnItemSelectedListener {
         super.onCreate(icicle)
         setContentView(R.layout.usage_stats)
         API.authenticate(this)
+        enableAlarms()
         val statsManager = UsageStatsUtil.createStatsManager()
         prepareStatsList(statsManager)
-//        API.rate(4)
-//        Alarm.setRateDayAlarm()
-//        Alarm.setSendStatsAlarm()
-        Alarm.getAlarmIntent(Pair("rate_day", 101)).send()
+        Alarm.setRateDayAlarm()
+        Alarm.setSendStatsAlarm()
+
+        Log.i("FILE_LOGS", Logger.read())
+
+// FOR TESTING PURPOSE
+//        Alarm.getAlarmIntent(Pair("send_stats", 102)).send()
+    }
+
+    private fun enableAlarms(){
+        val receiver = ComponentName(applicationContext, AlarmReceiver::class.java)
+
+        applicationContext.packageManager.setComponentEnabledSetting(
+            receiver,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            PackageManager.DONT_KILL_APP
+        )
     }
 
     private fun prepareStatsList(statsManager: UsageStatsManager){

@@ -32,7 +32,7 @@ fun jsonInterceptor() = { next: (Request) -> Request ->
 
 
 fun getPath(resource: String): String {
-    return ContextProvider.context.getString(R.string.test_url) + resource
+    return ContextProvider.context.getString(R.string.base_url) + resource
 }
 
 fun logResponse(result: Result<String, FuelError>) =
@@ -40,12 +40,15 @@ fun logResponse(result: Result<String, FuelError>) =
         is Result.Failure -> {
             val ex = result.getException()
             Log.i("Request-failure", ex.toString())
+            Logger.write("Request-failure $ex")
         }
         is Result.Success -> {
             val data = result.get()
             Log.i("Request-success", data)
+            Logger.write("Request-success $data")
+
         }
-        else -> Log.i("Request-failure", "unexpected failure")
+        else -> Logger.write("Request-failure unexpected failure")
     }
 
 
@@ -54,10 +57,6 @@ object API {
         FuelManager.instance.addRequestInterceptor(authInterceptor())
         FuelManager.instance.addRequestInterceptor(jsonInterceptor())
     }
-
-
-
-    private val googleClient = createGoogleClient()
 
     private fun createGoogleClient(): GoogleSignInClient {
         val clientId = ContextProvider.context.getString(R.string.server_client_id)
@@ -70,12 +69,14 @@ object API {
     }
 
     fun authenticate(activity: Activity) {
+        val googleClient = createGoogleClient()
         googleClient.silentSignIn().addOnFailureListener {
             activity.startActivity(googleClient.signInIntent)
         }
     }
 
     fun getAccountSuspended(): GoogleSignInAccount {
+        val googleClient = createGoogleClient()
         val signingProcess = googleClient.silentSignIn()
         while (!signingProcess.isComplete) {
             Thread.sleep(10)
