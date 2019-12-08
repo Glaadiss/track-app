@@ -3,8 +3,10 @@
     <string name="open_app_usage_setting">Open Apps with usage access settings</string>
     <string name="last_time_used">"Last time used: "</string>
     <string name="time_span">"Time span: "</string>
-    <string name="server_client_id">607978466940-4u4illcbmjqnmok8pnibtd6hqk248oke.apps.googleusercontent.com</string>
+    <string name="server_client_id">114532915979-id2u0aodno4d1bvsb6qquijmle7kbgj8.apps.googleusercontent.com</string>
+    <string name="test_client_id">607978466940-4u4illcbmjqnmok8pnibtd6hqk248oke.apps.googleusercontent.com</string>
     <string name="display_order_text">Track Apps</string>
+    <string name="report_title">Your Last Report</string>
     <string name="app_name_label">App</string>
     <string name="last_time_used_label">Last time used</string>
     <!-- label for usage time -->

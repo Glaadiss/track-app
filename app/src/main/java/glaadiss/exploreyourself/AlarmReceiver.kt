@@ -25,7 +25,7 @@ class AlarmReceiver : BroadcastReceiver() {
             Logger.write("SENDING STATS...")
             API.sendStats(
                 UsageStatsUtil.prepareStatsData(
-                    UsageStatsUtil.fetchStatsData(
+                    UsageStatsUtil.fetchStatsDataForExternal(
                         UsageStatsUtil.createStatsManager()
                     )
                 )

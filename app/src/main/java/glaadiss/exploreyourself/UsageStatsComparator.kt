@@ -1,6 +1,6 @@
 package glaadiss.exploreyourself
 
-import java.util.Comparator
+import java.util.*
 
 internal class UsageStatsComparator {
     class AppNameComparator internal constructor(private val mAppLabelList: Map<String, String>) :
@@ -13,7 +13,7 @@ internal class UsageStatsComparator {
 
     class LastTimeUsedComparator : Comparator<AppUsageInfo> {
         override fun compare(a: AppUsageInfo, b: AppUsageInfo): Int {
-            return (b.previousEventTimestamp- a.previousEventTimestamp).toInt()
+                return (b.previousEventTimestamp- a.previousEventTimestamp).toInt()
         }
     }
 

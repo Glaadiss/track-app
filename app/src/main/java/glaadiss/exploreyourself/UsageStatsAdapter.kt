@@ -1,6 +1,5 @@
 package glaadiss.exploreyourself
 
-import android.app.AlarmManager
 import android.app.usage.UsageStatsManager
 import android.content.pm.PackageManager
 import android.text.format.DateUtils
@@ -33,7 +32,7 @@ internal class UsageStatsAdapter : BaseAdapter() {
     private var mAppLabelComparator: UsageStatsComparator.AppNameComparator? = null
 
     fun init(): UsageStatsAdapter? {
-        val eventsMap = UsageStatsUtil.fetchStatsData(mUsageStatsManager!!, timeAgo = AlarmManager.INTERVAL_DAY)
+        val eventsMap = UsageStatsUtil.fetchStatsData(mUsageStatsManager!!, now = true)
         val stats = eventsMap.toList()
         for (stat in stats) {
             val pkgStats = stat.second

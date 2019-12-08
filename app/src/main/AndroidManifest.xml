@@ -38,10 +38,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity android:name=".ReportActivity">
+        </activity>
         <service android:name=".UsageStatsService"
         >
         </service>
         <activity android:name=".AlertActivity"/>
+
+        <meta-data android:name="com.google.android.se"
+                   android:value="@string/server_client_id" />
     </application>
 
 </manifest>

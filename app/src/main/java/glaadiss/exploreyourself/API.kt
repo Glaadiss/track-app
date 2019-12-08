@@ -2,16 +2,19 @@ package glaadiss.exploreyourself
 
 import android.app.Activity
 import android.util.Log
+import android.widget.Toast
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Headers
 import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.result.Result
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.GoogleApiClient
 import org.json.JSONObject
 
 
@@ -53,35 +56,45 @@ fun logResponse(result: Result<String, FuelError>) =
 
 
 object API {
+    const val RC_SIGN_IN = 101
+
+    private val googleClient = createGoogleClient()
+
     init {
         FuelManager.instance.addRequestInterceptor(authInterceptor())
         FuelManager.instance.addRequestInterceptor(jsonInterceptor())
     }
 
-    private fun createGoogleClient(): GoogleSignInClient {
-        val clientId = ContextProvider.context.getString(R.string.server_client_id)
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+    private fun getGso(): GoogleSignInOptions {
+        val clientId = ContextProvider.context.getString(R.string.test_client_id)
+        return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(clientId)
             .requestEmail()
             .build()
+    }
 
-        return GoogleSignIn.getClient(ContextProvider.context, gso)
+    private fun createGoogleClient(): GoogleSignInClient {
+        return GoogleSignIn.getClient(ContextProvider.context, getGso())
     }
 
     fun authenticate(activity: Activity) {
-        val googleClient = createGoogleClient()
         googleClient.silentSignIn().addOnFailureListener {
-            activity.startActivity(googleClient.signInIntent)
+            Toast.makeText(activity.applicationContext, it.toString(), Toast.LENGTH_LONG).show()
+            activity.startActivityForResult(googleClient.signInIntent, RC_SIGN_IN)
         }
     }
 
     fun getAccountSuspended(): GoogleSignInAccount {
-        val googleClient = createGoogleClient()
-        val signingProcess = googleClient.silentSignIn()
-        while (!signingProcess.isComplete) {
-            Thread.sleep(10)
-        }
-        return signingProcess.result!!
+        val apiClient = GoogleApiClient
+            .Builder(ContextProvider.context)
+            .addApi(Auth.GOOGLE_SIGN_IN_API, getGso())
+            .build()
+        apiClient.blockingConnect()
+        val result = Auth.GoogleSignInApi.silentSignIn(apiClient).await()
+
+        apiClient.disconnect()
+
+        return result.signInAccount!!
     }
 
     private fun getBody(map: Map<Any, Any>) =
@@ -89,12 +102,17 @@ object API {
 
     fun rate(rate: Number) {
         val body = getBody(mapOf("rating" to rate))
-        Fuel.post(getPath("rate")).body(body).responseString { _, _, res -> logResponse(res)
+        Fuel.post(getPath("rate")).body(body).responseString { _, _, res ->
+            logResponse(res)
         }
     }
 
     fun sendStats(statsJson: String) {
         Fuel.post(getPath("activities")).body(statsJson).responseString { _, _, res -> logResponse(res) }
+    }
+
+    fun getReport() {
+        Fuel.get(getPath("report")).responseString { _, _, res -> logResponse(res) }
     }
 
 }
