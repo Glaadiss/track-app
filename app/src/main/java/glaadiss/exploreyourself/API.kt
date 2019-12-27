@@ -66,7 +66,7 @@ object API {
     }
 
     private fun getGso(): GoogleSignInOptions {
-        val clientId = ContextProvider.context.getString(R.string.test_client_id)
+        val clientId = ContextProvider.context.getString(R.string.server_client_id)
         return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(clientId)
             .requestEmail()
@@ -111,8 +111,8 @@ object API {
         Fuel.post(getPath("activities")).body(statsJson).responseString { _, _, res -> logResponse(res) }
     }
 
-    fun getReport() {
-        Fuel.get(getPath("report")).responseString { _, _, res -> logResponse(res) }
+    fun getReport(callback: (Result<String, FuelError>) -> Unit){
+        Fuel.get(getPath("report")).responseString {_, _, res -> callback(res)}
     }
 
 }

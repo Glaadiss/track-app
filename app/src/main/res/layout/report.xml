@@ -11,63 +11,58 @@
 
     <TextView
             android:textColor="@android:color/white"
-            android:text="TextView"
             android:textSize="18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView10"
+            android:id="@+id/bestApp3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" android:layout_marginTop="12dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/bestApp2" android:layout_marginTop="12dp"/>
     <TextView
-            android:text="TextView"
             android:textSize="18dp"
             android:textColor="@android:color/white"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView9"
+            android:id="@+id/worstApp3"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" android:layout_marginTop="12dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/worstApp2" android:layout_marginTop="12dp"/>
     <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp" android:src="@mipmap/watch_round"
             android:id="@+id/imageView4"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/textView2"/>
+            app:layout_constraintTop_toTopOf="@+id/bestDayPart"/>
     <TextView
-            android:text="TextView"
             android:textSize="22dp"
             android:textColor="@android:color/white"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView5"
+            android:id="@+id/worstApp2"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView6" android:layout_marginTop="12dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/worstApp1" android:layout_marginTop="12dp"/>
     <TextView
-            android:text="TextView"
             android:textColor="@android:color/white"
 
             android:textSize="26dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView6"
+            android:id="@+id/worstApp1"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp" app:layout_constraintTop_toTopOf="@+id/imageView2"/>
     <TextView
-            android:text="TextView"
             android:textSize="16dp"
             android:textColor="@android:color/white"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView7"
+            android:id="@+id/worstDayPart"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/textView9"/>
+            android:layout_marginTop="32dp" app:layout_constraintTop_toBottomOf="@+id/worstApp3"/>
     <TextView
             android:layout_width="match_parent"
             android:textColor="@android:color/white"
@@ -108,43 +103,40 @@
             android:layout_marginTop="204dp" app:layout_constraintTop_toBottomOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/imageView" android:layout_marginStart="0dp"/>
     <TextView
-            android:text="TextView"
             android:textColor="@android:color/white"
 
             android:textSize="22dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4"
+            android:id="@+id/bestApp2"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp" android:layout_marginTop="12dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+            app:layout_constraintTop_toBottomOf="@+id/bestApp1"/>
     <TextView
-            android:text="TextView"
             android:textSize="26dp"
             android:textColor="@android:color/white"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView3"
+            android:id="@+id/bestApp1"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp" app:layout_constraintTop_toTopOf="@+id/imageView"/>
     <TextView
-            android:text="TextView"
             android:textSize="16dp"
             android:textColor="@android:color/white"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView2"
+            android:id="@+id/bestDayPart"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             android:layout_marginStart="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" android:layout_marginTop="32dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/bestApp3" android:layout_marginTop="32dp"/>
     <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp" android:src="@mipmap/watch_round"
             android:id="@+id/imageView3"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/textView7"/>
+            app:layout_constraintTop_toTopOf="@+id/worstDayPart"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
